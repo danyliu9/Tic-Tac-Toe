@@ -30,12 +30,8 @@ public class TicTacToe extends JFrame{
 
     public TicTacToe() {
         super("Tic-Tac-Toe");
-        initializeBoard();
-        selectPlayer();
-    }
-
-    private void initializeBoard() {
         board = new Board();
+        selectPlayer();
     }
 
     private void initializeGraphics() {
