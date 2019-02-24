@@ -102,7 +102,7 @@ public class TicTacToe extends JFrame{
         button.setIcon(imageIcon);
         button.setDisabledIcon(imageIcon);
         System.out.println(board.getBoard().size());
-        if (board.checkRow()) {
+        if (board.checkWin()) {
             winScreen(playerName);
         }
     }

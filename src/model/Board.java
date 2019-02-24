@@ -31,7 +31,7 @@ public class Board {
         return board;
     }
 
-    public Boolean checkRow() {
+    public Boolean checkWin() {
         return checkHorizontal() || checkVertical() || checkRightDiagonal() || checkLeftDiagonal();
     }
 
