@@ -31,8 +31,12 @@ public class Board {
         return board;
     }
 
-    public Boolean checkWin() {
-        return checkHorizontal() || checkVertical() || checkRightDiagonal() || checkLeftDiagonal();
+    public Integer checkWin() {
+        if (checkHorizontal() || checkVertical() || checkRightDiagonal() || checkLeftDiagonal()) {
+            return 0;
+        } else {
+            return 1;
+        }
     }
 
     private boolean checkRightDiagonal() {

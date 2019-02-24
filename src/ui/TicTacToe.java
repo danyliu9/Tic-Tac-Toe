@@ -101,22 +101,42 @@ public class TicTacToe extends JFrame{
         ImageIcon imageIcon = new ImageIcon(playerName + ".gif");
         button.setIcon(imageIcon);
         button.setDisabledIcon(imageIcon);
-        System.out.println(board.getBoard().size());
-        if (board.checkWin()) {
-            winScreen(playerName);
+
+        switch(board.checkWin()) {
+            case 0:
+                winScreen(playerName);
+                break;
+            case 1:
+                drawScreen();
+                break;
         }
     }
 
     private void winScreen(String player) {
+        Label victory = new Label("PLAYER " + player + " WINS!");
+        victory.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
+        victory.setAlignment(Label.CENTER);
+
+        JPanel jPanel = getEndGamePanel(victory);
+
+        Random rand = new Random();
+        jPanel.setBackground(new Color(rand.nextInt(200), rand.nextInt(200), rand.nextInt(200)));
+    }
+
+    private void drawScreen() {
+        Label victory = new Label("IT'S A DRAW!");
+        victory.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
+        victory.setAlignment(Label.CENTER);
+
+        JPanel jPanel = getEndGamePanel(victory);
+    }
+
+    private JPanel getEndGamePanel(Label victory) {
         getContentPane().removeAll();
         JPanel jPanel = new JPanel();
         jPanel.setPreferredSize(new Dimension(300,70));
         getContentPane().add(jPanel);
-        Label victory = new Label("PLAYER " + player + " WINS!");
-        victory.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
-        victory.setAlignment(Label.CENTER);
         jPanel.add(victory);
-
         JButton jButton2 = new JButton("Play again?");
         jButton2.addActionListener(e -> {
             board.clear();
@@ -130,9 +150,7 @@ public class TicTacToe extends JFrame{
         jPanel.add(jButton2);
 
         pack();
-
-        Random rand = new Random();
-        jPanel.setBackground(new Color(rand.nextInt(200), rand.nextInt(200), rand.nextInt(200)));
+        return jPanel;
     }
 
     public static void main(String[] args) {
