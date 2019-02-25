@@ -11,8 +11,8 @@ public class Board {
         board = new char[3][3];
     }
 
-    public void addMarker(Integer i) {
-        board.replace(i, "x");
+    public void addMarker(Integer x, Integer y, char currentPlayer) {
+        board[x][y] = currentPlayer;
     }
 
     public void addO(Integer i) {
