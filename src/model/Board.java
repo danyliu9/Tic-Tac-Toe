@@ -82,10 +82,7 @@ public class Board {
     }
 
     public Integer checkState(Integer currentPlayer) {
-        int boardSize = board.length;
-        if (turns == boardSize*boardSize) {
-            return 0;
-        }
+        if (checkDraw()) return 0;
 
         for (int i = 0; i < board.length; i++) {
             char centerH = board[i][1];
@@ -100,12 +97,20 @@ public class Board {
 
         char centerD = board[1][1];
         if (board[0][0] == centerD && centerD == board[2][2]) {
-
+            return currentPlayer;
         }
         if (board[0][2] == centerD && centerD == board[2][0]) {
-
+            return currentPlayer;
         }
 
         return -1;
+    }
+
+    private boolean checkDraw() {
+        int boardSize = board.length;
+        if (turns == boardSize*boardSize) {
+            return true;
+        }
+        return false;
     }
 }
