@@ -19,8 +19,8 @@ import javax.swing.border.TitledBorder;
 import model.Board;
 
 public class TicTacToe extends JFrame{
-    private static final String x = "X";
-    private static final String o = "O";
+    private static final char x = 'X';
+    private static final char o = 'O';
     private static final Boolean xTurn = true;
     private static final Boolean oTurn = false;
 
@@ -102,7 +102,7 @@ public class TicTacToe extends JFrame{
         button.setIcon(imageIcon);
         button.setDisabledIcon(imageIcon);
 
-        switch(board.checkWin()) {
+        switch(board.checkState()) {
             case 0:
                 winScreen(playerName);
                 break;
