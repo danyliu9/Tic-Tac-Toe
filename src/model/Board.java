@@ -81,24 +81,31 @@ public class Board {
         return win;
     }
 
-    public Integer checkWin(Integer currentPlayer) {
+    public Integer checkState(Integer currentPlayer) {
+        int boardSize = board.length;
+        if (turns == boardSize*boardSize) {
+            return 0;
+        }
+
         for (int i = 0; i < board.length; i++) {
-            char center = board[i][1];
-            if (board[i][0] == center && center == board[i][2]) {
+            char centerH = board[i][1];
+            if (board[i][0] == centerH && centerH == board[i][2]) {
                 return currentPlayer;
-            } else {
-                return 0;
+            }
+            char centerV = board[1][i];
+            if (board[0][i] == centerV && centerV == board[2][i]) {
+                return currentPlayer;
             }
         }
 
-        if (checkHorizontal() || checkVertical() || checkRightDiagonal() || checkLeftDiagonal()) {
-            return 0;
-        } else {
-            return 1;
-        }
-    }
+        char centerD = board[1][1];
+        if (board[0][0] == centerD && centerD == board[2][2]) {
 
-    private boolean checkValue(int value) {
-        return value == 3 || value == -3;
+        }
+        if (board[0][2] == centerD && centerD == board[2][0]) {
+
+        }
+
+        return -1;
     }
 }
