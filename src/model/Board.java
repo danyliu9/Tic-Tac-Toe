@@ -15,13 +15,11 @@ public class Board {
         board[x][y] = currentPlayer;
     }
 
-    public void addO(Integer i) {
-        board.replace(i, "o");
-    }
-
     public void clear() {
-        for (int i = 0; i < 9; i++) {
-            board.replace(i, "");
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                board[i][j] = ' ';
+            }
         }
     }
 
