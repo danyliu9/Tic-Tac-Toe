@@ -29,8 +29,8 @@ public class Board {
         return board;
     }
 
-    public Integer checkState(Integer currentPlayer) {
-        if (checkDraw()) return 0;
+    public char checkState(char currentPlayer) {
+        if (checkDraw()) return '0';
 
         for (int i = 0; i < board.length; i++) {
             char centerH = board[i][1];
@@ -51,7 +51,7 @@ public class Board {
             return currentPlayer;
         }
 
-        return -1;
+        return ' ';
     }
 
     private boolean checkDraw() {

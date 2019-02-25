@@ -96,18 +96,21 @@ public class TicTacToe extends JFrame{
         }
     }
 
-    private void placeChar(String playerName, JButton button) {
+    private void placeChar(char playerName, JButton button) {
         button.setEnabled(false);
         ImageIcon imageIcon = new ImageIcon(playerName + ".gif");
         button.setIcon(imageIcon);
         button.setDisabledIcon(imageIcon);
 
-        switch(board.checkState()) {
-            case 0:
-                winScreen(playerName);
-                break;
-            case 1:
+        switch(board.checkState(playerName)) {
+            case '0':
                 drawScreen();
+                break;
+            case x:
+                winScreen(x);
+                break;
+            case o:
+                winScreen(o);
                 break;
         }
     }
