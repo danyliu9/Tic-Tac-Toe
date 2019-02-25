@@ -3,17 +3,15 @@ package model;
 import java.util.HashMap;
 
 public class Board {
-    private HashMap<Integer, String> board;
+    private char[][] board;
     private Boolean w;
 
+    // Initilialize all board elements to 0
     public Board() {
-        board = new HashMap<>();
-        for (int i = 0; i < 9; i++) {
-            board.put(i, "");
-        }
+        board = new char[3][3];
     }
 
-    public void addX(Integer i) {
+    public void addMarker(Integer i) {
         board.replace(i, "x");
     }
 
