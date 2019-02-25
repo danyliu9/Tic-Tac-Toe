@@ -4,15 +4,17 @@ import java.util.HashMap;
 
 public class Board {
     private char[][] board;
-    private Boolean w;
+    private Integer turns;
 
     // Initilialize all board elements to 0
     public Board() {
         board = new char[3][3];
+        turns = 0;
     }
 
     public void addMarker(Integer x, Integer y, char currentPlayer) {
         board[x][y] = currentPlayer;
+        turns++;
     }
 
     public void clear() {
@@ -27,20 +29,10 @@ public class Board {
         return board;
     }
 
-    public Integer checkWin() {
-        if (checkHorizontal() || checkVertical() || checkRightDiagonal() || checkLeftDiagonal()) {
-            return 0;
-        } else {
-            return 1;
-        }
-    }
-
     private boolean checkRightDiagonal() {
-        int win = 0;
-        for (int i = 2; i < 7; i = i + 2) {
-            win = checkXO(i, win);
+        for (int i = 2; i >= 0; i--) {
+
         }
-        return checkValue(win);
     }
 
     private boolean checkLeftDiagonal() {
@@ -87,6 +79,23 @@ public class Board {
             win--;
         }
         return win;
+    }
+
+    public Integer checkWin(Integer currentPlayer) {
+        for (int i = 0; i < board.length; i++) {
+            char center = board[i][1];
+            if (board[i][0] == center && center == board[i][2]) {
+                return currentPlayer;
+            } else {
+                return 0;
+            }
+        }
+
+        if (checkHorizontal() || checkVertical() || checkRightDiagonal() || checkLeftDiagonal()) {
+            return 0;
+        } else {
+            return 1;
+        }
     }
 
     private boolean checkValue(int value) {
