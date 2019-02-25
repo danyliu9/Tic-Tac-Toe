@@ -23,7 +23,7 @@ public class Board {
         }
     }
 
-    public HashMap<Integer, String> getBoard() {
+    public char[][] getBoard() {
         return board;
     }
 
