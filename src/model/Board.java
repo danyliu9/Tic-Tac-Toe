@@ -29,58 +29,6 @@ public class Board {
         return board;
     }
 
-    private boolean checkRightDiagonal() {
-        for (int i = 2; i >= 0; i--) {
-
-        }
-    }
-
-    private boolean checkLeftDiagonal() {
-        int win = 0;
-        for (int i = 0; i < 9; i = i + 4) {
-            win = checkXO(i, win);
-        }
-        return checkValue(win);
-    }
-
-
-    private boolean checkVertical() {
-        int win;
-        for (int i = 0; i < 3; i++) {
-            win = 0;
-            for (int v = i; v < i + 7; v = v + 3) {
-                win = checkXO(v, win);
-            }
-            if (win == 3 || win == -3) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean checkHorizontal() {
-        int win;
-        for (int i = 0; i < 3 * 3; i = i + 3) {
-            win = 0;
-            for (int h = i; h < i + 3; h++) {
-                win = checkXO(h, win);
-            }
-            if (win == 3 || win == -3) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private int checkXO(int h, int win) {
-        if (board.get(h).equals("x")) {
-            win++;
-        } else if (board.get(h).equals("o")) {
-            win--;
-        }
-        return win;
-    }
-
     public Integer checkState(Integer currentPlayer) {
         if (checkDraw()) return 0;
 
