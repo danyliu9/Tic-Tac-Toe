@@ -101,6 +101,7 @@ public class TicTacToe extends JFrame{
 
     private void placeChar(char playerName, JButton button) {
         button.setEnabled(false);
+        button.setFocusPainted(false);
         ImageIcon imageIcon = new ImageIcon(playerName + ".gif");
         button.setIcon(imageIcon);
         button.setDisabledIcon(imageIcon);
@@ -137,7 +138,7 @@ public class TicTacToe extends JFrame{
         Label victory = new Label("IT'S A DRAW!");
         victory.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
         victory.setAlignment(Label.CENTER);
-        JPanel jPanel = getEndGamePanel(victory);
+        getEndGamePanel(victory);
     }
 
     private JPanel getEndGamePanel(Label victory) {
