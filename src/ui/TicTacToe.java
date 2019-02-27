@@ -76,23 +76,26 @@ public class TicTacToe extends JFrame{
     }
 
     private void generateButtons(JPanel jPanel1) {
-        for (int i = 0; i < board.getBoard().size(); i++) {
-            JButton button = new JButton(board.getBoard().get(i));
-            int finalI = i;
-            button.addActionListener(e -> {
-                if (button.getText().equals("")) {
-                    if (turn) {
-                        board.addX(finalI);
-                        placeChar(x, button);
-                    } else {
-                        board.addO(finalI);
-                        placeChar(o, button);
+        for (int i = 0; i < board.getBoard().length; i++) {
+            for (int j = 0; j < board.getBoard().length; j++) {
+                JButton button = new JButton();
+                int finalI = i;
+                int finalJ = j;
+                button.addActionListener(e -> {
+                    if (button.getText().equals("")) {
+                        if (turn) {
+                            board.addMarker(finalI, finalJ, x);
+                            placeChar(x, button);
+                        } else {
+                            board.addMarker(finalI, finalJ, x);
+                            placeChar(o, button);
+                        }
+                        turn = !turn;
                     }
-                    turn = !turn;
-                }
 
-            });
-            jPanel1.add(button);
+                });
+                jPanel1.add(button);
+            }
         }
     }
 
@@ -112,10 +115,12 @@ public class TicTacToe extends JFrame{
             case o:
                 winScreen(o);
                 break;
+            case ' ':
+                break;
         }
     }
 
-    private void winScreen(String player) {
+    private void winScreen(char player) {
         Label victory = new Label("PLAYER " + player + " WINS!");
         victory.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
         victory.setAlignment(Label.CENTER);
