@@ -15,6 +15,7 @@ public class Board {
     public void addMarker(Integer x, Integer y, char currentPlayer) {
         board[x][y] = currentPlayer;
         turns++;
+        System.out.println(turns);
     }
 
     public void clear() {
@@ -34,21 +35,27 @@ public class Board {
 
         for (int i = 0; i < board.length; i++) {
             char centerH = board[i][1];
-            if (board[i][0] == centerH && centerH == board[i][2]) {
-                return currentPlayer;
+            if (centerH == currentPlayer) {
+                if (board[i][0] == centerH && centerH == board[i][2]) {
+                    return currentPlayer;
+                }
             }
             char centerV = board[1][i];
-            if (board[0][i] == centerV && centerV == board[2][i]) {
-                return currentPlayer;
+            if (centerV == currentPlayer) {
+                if (board[0][i] == centerV && centerV == board[2][i]) {
+                    return currentPlayer;
+                }
             }
         }
 
         char centerD = board[1][1];
-        if (board[0][0] == centerD && centerD == board[2][2]) {
-            return currentPlayer;
-        }
-        if (board[0][2] == centerD && centerD == board[2][0]) {
-            return currentPlayer;
+        if (centerD == currentPlayer) {
+            if (board[0][0] == centerD && centerD == board[2][2]) {
+                return currentPlayer;
+            }
+            if (board[0][2] == centerD && centerD == board[2][0]) {
+                return currentPlayer;
+            }
         }
 
         return ' ';

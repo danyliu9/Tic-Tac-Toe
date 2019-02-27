@@ -78,16 +78,16 @@ public class TicTacToe extends JFrame{
     private void generateButtons(JPanel jPanel1) {
         for (int i = 0; i < board.getBoard().length; i++) {
             for (int j = 0; j < board.getBoard().length; j++) {
-                JButton button = new JButton();
+                JButton button = new JButton(" ");
                 int finalI = i;
                 int finalJ = j;
                 button.addActionListener(e -> {
-                    if (button.getText().equals("")) {
+                    if (button.getText().equals(" ")) {
                         if (turn) {
                             board.addMarker(finalI, finalJ, x);
                             placeChar(x, button);
                         } else {
-                            board.addMarker(finalI, finalJ, x);
+                            board.addMarker(finalI, finalJ, o);
                             placeChar(o, button);
                         }
                         turn = !turn;
