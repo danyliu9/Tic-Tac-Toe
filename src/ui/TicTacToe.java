@@ -142,7 +142,8 @@ public class TicTacToe extends JFrame{
     private JPanel getEndGamePanel(Label victory) {
         getContentPane().removeAll();
         JPanel jPanel = new JPanel();
-        jPanel.setPreferredSize(new Dimension(300,90));
+        jPanel.setPreferredSize(new Dimension(300,70));
+        jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
         getContentPane().add(jPanel);
         jPanel.add(victory);
         JButton jButton2 = new JButton("Play again?");
@@ -155,7 +156,6 @@ public class TicTacToe extends JFrame{
         jButton2.setToolTipText("Reset the game");
         jButton2.setPreferredSize(new Dimension(100,20));
         jButton2.setAlignmentX(Component.CENTER_ALIGNMENT);
-        jButton2.setAlignmentY(Component.BOTTOM_ALIGNMENT);
         jPanel.add(jButton2);
 
         pack();
