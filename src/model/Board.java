@@ -15,7 +15,6 @@ public class Board {
     public void addMarker(Integer x, Integer y, char currentPlayer) {
         board[x][y] = currentPlayer;
         turns++;
-        System.out.println(turns);
     }
 
     public void clear() {
@@ -24,6 +23,7 @@ public class Board {
                 board[i][j] = ' ';
             }
         }
+        turns = 0;
     }
 
     public char[][] getBoard() {
@@ -57,7 +57,6 @@ public class Board {
                 return currentPlayer;
             }
         }
-
         return ' ';
     }
 
