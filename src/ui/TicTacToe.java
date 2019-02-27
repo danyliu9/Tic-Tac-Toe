@@ -31,10 +31,25 @@ public class TicTacToe extends JFrame{
     public TicTacToe() {
         super("Tic-Tac-Toe");
         board = new Board();
-        selectPlayer();
+        initFrame();
+        selectGameMode();
+        selectPlayerWindow();
+        pack();
+        setLocationRelativeTo(null);
     }
 
-    private void initializeGraphics() {
+    private void initFrame() {
+        setResizable(false);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
+        pack();
+    }
+
+    private void selectGameMode() {
+
+    }
+
+    private void initBoardUI() {
         JPanel jPanel1 = new JPanel();
         jPanel1.setLayout(new GridLayout(0,3));
         jPanel1.setPreferredSize(new Dimension(300,300));
@@ -46,33 +61,26 @@ public class TicTacToe extends JFrame{
         setLocationRelativeTo(null);
     }
 
-    private void selectPlayer() {
-        setResizable(false);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
+    private void selectPlayerWindow() {
+        JPanel jPanel = new JPanel();
+        jPanel.setBorder(new TitledBorder("Play as:"));
+        jPanel.setPreferredSize(new Dimension(300,60));
+        getContentPane().add(jPanel);
 
-        JPanel jPanel0 = new JPanel();
-        jPanel0.setBorder(new TitledBorder("Play as:"));
-        jPanel0.setPreferredSize(new Dimension(300,60));
-        getContentPane().add(jPanel0);
-
-        setPlayerButton(jPanel0, "Player X", xTurn, "click me!");
-        setPlayerButton(jPanel0, "Player O", oTurn, "or click me!");
-
-        pack();
-        setLocationRelativeTo(null);
+        setPlayerButton(jPanel, "Player X", xTurn, "click me!");
+        setPlayerButton(jPanel, "Player O", oTurn, "or click me!");
     }
 
-    private void setPlayerButton(JPanel jPanel0, String s, Boolean turn, String s2) {
+    private void setPlayerButton(JPanel jPanel, String s, Boolean turn, String s2) {
         JButton jButton = new JButton(s);
         jButton.addActionListener(e -> {
             this.turn = turn;
-            remove(jPanel0);
-            initializeGraphics();
+            remove(jPanel);
+            initBoardUI();
         });
         jButton.setToolTipText(s2);
         jButton.setPreferredSize(new Dimension(100, 30));
-        jPanel0.add(jButton);
+        jPanel.add(jButton);
     }
 
     private void generateButtons(JPanel jPanel1) {
@@ -152,7 +160,7 @@ public class TicTacToe extends JFrame{
         jButton2.addActionListener(e -> {
             board.clear();
             getContentPane().removeAll();
-            selectPlayer();
+            selectPlayerWindow();
         });
 
         jButton2.setToolTipText("Reset the game");
