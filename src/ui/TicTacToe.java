@@ -128,21 +128,21 @@ public class TicTacToe extends JFrame{
         JPanel jPanel = getEndGamePanel(victory);
 
         Random rand = new Random();
-        jPanel.setBackground(new Color(rand.nextInt(200), rand.nextInt(200), rand.nextInt(200)));
+        Color randomColor = new Color(rand.nextInt(200), rand.nextInt(200), rand.nextInt(200));
+        victory.setBackground(randomColor);
+        jPanel.setBackground(randomColor);
     }
 
     private void drawScreen() {
         Label victory = new Label("IT'S A DRAW!");
         victory.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
         victory.setAlignment(Label.CENTER);
-
-        JPanel jPanel = getEndGamePanel(victory);
     }
 
     private JPanel getEndGamePanel(Label victory) {
         getContentPane().removeAll();
         JPanel jPanel = new JPanel();
-        jPanel.setPreferredSize(new Dimension(300,70));
+        jPanel.setPreferredSize(new Dimension(300,90));
         getContentPane().add(jPanel);
         jPanel.add(victory);
         JButton jButton2 = new JButton("Play again?");
@@ -155,6 +155,7 @@ public class TicTacToe extends JFrame{
         jButton2.setToolTipText("Reset the game");
         jButton2.setPreferredSize(new Dimension(100,20));
         jButton2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jButton2.setAlignmentY(Component.BOTTOM_ALIGNMENT);
         jPanel.add(jButton2);
 
         pack();
