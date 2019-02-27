@@ -79,6 +79,7 @@ public class TicTacToe extends JFrame{
         for (int i = 0; i < board.getBoard().length; i++) {
             for (int j = 0; j < board.getBoard().length; j++) {
                 JButton button = new JButton(" ");
+                button.setFocusable(false);
                 int finalI = i;
                 int finalJ = j;
                 button.addActionListener(e -> {
@@ -101,7 +102,6 @@ public class TicTacToe extends JFrame{
 
     private void placeChar(char playerName, JButton button) {
         button.setEnabled(false);
-        button.setFocusPainted(false);
         ImageIcon imageIcon = new ImageIcon(playerName + ".gif");
         button.setIcon(imageIcon);
         button.setDisabledIcon(imageIcon);
