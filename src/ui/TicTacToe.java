@@ -137,6 +137,7 @@ public class TicTacToe extends JFrame{
         Label victory = new Label("IT'S A DRAW!");
         victory.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
         victory.setAlignment(Label.CENTER);
+        JPanel jPanel = getEndGamePanel(victory);
     }
 
     private JPanel getEndGamePanel(Label victory) {
