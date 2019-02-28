@@ -50,14 +50,39 @@ public class TicTacToe extends JFrame{
         jPanel.setPreferredSize(new Dimension(300,90));
         getContentPane().add(jPanel);
 
-        JButton twoPlayerMode = new JButton("2 Players");
+        JButton singlePlayerMode = new JButton("Single Player");
+        singlePlayerMode.addActionListener(e -> {
+            // TODO
+            remove(jPanel);
+            startSinglePlay();
+        });
+        singlePlayerMode.setToolTipText("Play against the game.");
+        singlePlayerMode.setPreferredSize(new Dimension(150, 30));
+        jPanel.add(singlePlayerMode);
+
+        JButton twoPlayerMode = new JButton("Two Players");
         twoPlayerMode.addActionListener(e -> {
             remove(jPanel);
             selectPlayerWindow();
         });
         twoPlayerMode.setToolTipText("Play with a friend.");
-        twoPlayerMode.setPreferredSize(new Dimension(100, 30));
+        twoPlayerMode.setPreferredSize(new Dimension(150, 30));
         jPanel.add(twoPlayerMode);
+    }
+
+    private void startSinglePlay() {
+
+    }
+
+    private void selectPlayerWindow() {
+        JPanel jPanel = new JPanel();
+        jPanel.setBorder(new TitledBorder("Play as:"));
+        jPanel.setPreferredSize(new Dimension(300,60));
+        getContentPane().add(jPanel);
+
+        setPlayerButton(jPanel, "Player X", xTurn, "click me!");
+        setPlayerButton(jPanel, "Player O", oTurn, "or click me!");
+        pack();
     }
 
     private void initBoardUI() {
@@ -70,17 +95,6 @@ public class TicTacToe extends JFrame{
         getContentPane().add(jPanel1);
         pack();
         setLocationRelativeTo(null);
-    }
-
-    private void selectPlayerWindow() {
-        JPanel jPanel = new JPanel();
-        jPanel.setBorder(new TitledBorder("Play as:"));
-        jPanel.setPreferredSize(new Dimension(300,60));
-        getContentPane().add(jPanel);
-
-        setPlayerButton(jPanel, "Player X", xTurn, "click me!");
-        setPlayerButton(jPanel, "Player O", oTurn, "or click me!");
-        pack();
     }
 
     private void setPlayerButton(JPanel jPanel, String s, Boolean turn, String s2) {
