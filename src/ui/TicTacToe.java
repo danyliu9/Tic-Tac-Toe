@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Label;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.BoxLayout;
@@ -16,21 +18,46 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
+import model.AIPlayer;
 import model.Board;
 
 public class TicTacToe extends JFrame{
-    private static final char x = 'X';
-    private static final char o = 'O';
-    private static final Boolean xTurn = true;
-    private static final Boolean oTurn = false;
+    public static final char x = 'X';
+    public static final char o = 'O';
+    public static final Boolean xTurn = true;
+    public static final Boolean oTurn = false;
+    private AIPlayer ai;
+
+    private class TButton {
+        public JButton jButton;
+        private int x;
+        private int y;
+
+        public TButton(int x, int y, JButton jButton) {
+            this.x = x;
+            this.y = y;
+            this.jButton = jButton;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public int getY() {
+            return y;
+        }
+    }
+
+    private List<TButton> buttons;
 
     private boolean turn;
-
+    private int gameMode;
     private Board board;
 
     public TicTacToe() {
         super("Tic-Tac-Toe");
         board = new Board();
+        buttons = new ArrayList<>();
         initFrame();
         selectGameMode();
         pack();
@@ -50,28 +77,37 @@ public class TicTacToe extends JFrame{
         jPanel.setPreferredSize(new Dimension(300,90));
         getContentPane().add(jPanel);
 
+        // Button to initilialize single player mode vs AI
         JButton singlePlayerMode = new JButton("Single Player");
         singlePlayerMode.addActionListener(e -> {
             // TODO
             remove(jPanel);
+            gameMode = 1;
             startSinglePlay();
         });
         singlePlayerMode.setToolTipText("Play against the game.");
         singlePlayerMode.setPreferredSize(new Dimension(150, 30));
         jPanel.add(singlePlayerMode);
 
+        // Button to initilialize two player mode
         JButton twoPlayerMode = new JButton("Two Players");
         twoPlayerMode.addActionListener(e -> {
             remove(jPanel);
+            gameMode = 2;
             selectPlayerWindow();
         });
         twoPlayerMode.setToolTipText("Play with a friend.");
         twoPlayerMode.setPreferredSize(new Dimension(150, 30));
         jPanel.add(twoPlayerMode);
+        pack();
     }
 
     private void startSinglePlay() {
+        selectPlayerWindow();
+    }
 
+    private void initAI(boolean player) {
+        ai = new AIPlayer(player);
     }
 
     private void selectPlayerWindow() {
@@ -103,6 +139,10 @@ public class TicTacToe extends JFrame{
             this.turn = turn;
             remove(jPanel);
             initBoardUI();
+            if (gameMode == 1) {
+                boolean player = turn;
+                initAI(!player);
+            }
         });
         jButton.setToolTipText(s2);
         jButton.setPreferredSize(new Dimension(100, 30));
@@ -113,6 +153,7 @@ public class TicTacToe extends JFrame{
         for (int i = 0; i < board.getBoard().length; i++) {
             for (int j = 0; j < board.getBoard().length; j++) {
                 JButton button = new JButton(" ");
+                buttons.add(new TButton(i,j, button));
                 button.setFocusable(false);
                 int finalI = i;
                 int finalJ = j;
@@ -121,11 +162,45 @@ public class TicTacToe extends JFrame{
                         if (turn) {
                             board.addMarker(finalI, finalJ, x);
                             placeChar(x, button);
+                            if (gameMode == 1){
+
+                                Random rand = new Random();
+                                int pos = rand.nextInt(9);
+
+
+                                int x = pos % board.getBoard().length;
+                                int y = pos / board.getBoard().length;
+                                while (board.getBoard()[x][y] != ' ') {
+                                    pos = rand.nextInt(9);
+                                    x = pos % board.getBoard().length;
+                                    y = pos / board.getBoard().length;
+                                }
+                                JButton click = buttons.get(pos).jButton;
+                                board.addMarker(x,y,ai.getSymbol());
+                                placeChar(ai.getSymbol(), click);
+                            }
                         } else {
                             board.addMarker(finalI, finalJ, o);
                             placeChar(o, button);
+                            if (gameMode == 1){
+
+                                Random rand = new Random();
+                                int pos = rand.nextInt(9);
+
+
+                                int x = pos % board.getBoard().length;
+                                int y = pos / board.getBoard().length;
+                                while (board.getBoard()[x][y] != ' ') {
+                                    pos = rand.nextInt(9);
+                                    x = pos % board.getBoard().length;
+                                    y = pos / board.getBoard().length;
+                                }
+                                JButton click = buttons.get(pos).jButton;
+                                board.addMarker(x,y,ai.getSymbol());
+                                placeChar(ai.getSymbol(), click);
+                            }
                         }
-                        turn = !turn;
+                        if (gameMode == 2) turn = !turn;
                     }
 
                 });
@@ -136,7 +211,7 @@ public class TicTacToe extends JFrame{
 
     private void placeChar(char playerName, JButton button) {
         button.setEnabled(false);
-        ImageIcon imageIcon = new ImageIcon(playerName + ".gif");
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource(playerName + ".gif"));
         button.setIcon(imageIcon);
         button.setDisabledIcon(imageIcon);
 
@@ -176,7 +251,6 @@ public class TicTacToe extends JFrame{
     }
 
     private JPanel getEndGamePanel(Label victory) {
-        getContentPane().removeAll();
         JPanel jPanel = new JPanel();
         jPanel.setPreferredSize(new Dimension(300,70));
         jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
