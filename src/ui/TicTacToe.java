@@ -186,7 +186,7 @@ public class TicTacToe extends JFrame{
         jButton2.addActionListener(e -> {
             board.clear();
             getContentPane().removeAll();
-            selectPlayerWindow();
+            selectGameMode();
         });
 
         jButton2.setToolTipText("Reset the game");
