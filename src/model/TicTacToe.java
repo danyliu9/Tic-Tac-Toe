@@ -1,4 +1,4 @@
-package ui;
+package model;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -17,9 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
-
-import model.AIPlayer;
-import model.Board;
 
 public class TicTacToe extends JFrame{
     public static final char x = 'X';
@@ -211,7 +208,7 @@ public class TicTacToe extends JFrame{
 
     private void placeChar(char playerName, JButton button) {
         button.setEnabled(false);
-        ImageIcon imageIcon = new ImageIcon(getClass().getResource(playerName + ".gif"));
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource("src/ui/"+playerName + ".gif"));
         button.setIcon(imageIcon);
         button.setDisabledIcon(imageIcon);
 
