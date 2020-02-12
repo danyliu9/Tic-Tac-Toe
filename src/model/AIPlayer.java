@@ -1,12 +1,10 @@
 package model;
 
-import ui.TicTacToe;
-
 public class AIPlayer {
     private char symbol;
 
     public AIPlayer(boolean turn) {
-        if (turn == TicTacToe.xTurn) symbol = TicTacToe.x;
+        if (turn == TicTacToe.X_TURN) symbol = TicTacToe.x;
         else symbol = TicTacToe.o;
     }
 

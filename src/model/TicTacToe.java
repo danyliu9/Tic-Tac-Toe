@@ -1,11 +1,8 @@
 package model;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.Label;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -18,12 +15,25 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
-public class TicTacToe extends JFrame{
+public class TicTacToe extends JFrame implements ActionListener{
     public static final char x = 'X';
     public static final char o = 'O';
-    public static final Boolean xTurn = true;
-    public static final Boolean oTurn = false;
+    public static final Boolean X_TURN = true;
+    public static final Boolean O_TURN = false;
     private AIPlayer ai;
+    private List<TButton> buttons;
+    private boolean turn;
+    private int gameMode;
+    private Board board;
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getID() == Event.MOUSE_DOWN) {
+            this.removeAll();
+            gameMode = 1;
+            startSinglePlay();
+        }
+    }
 
     private class TButton {
         public JButton jButton;
@@ -45,83 +55,66 @@ public class TicTacToe extends JFrame{
         }
     }
 
-    private List<TButton> buttons;
-
-    private boolean turn;
-    private int gameMode;
-    private Board board;
-
     public TicTacToe() {
         super("Tic-Tac-Toe");
         board = new Board();
         buttons = new ArrayList<>();
-        initFrame();
+        initGameFrame();
         selectGameMode();
-        pack();
-        setLocationRelativeTo(null);
     }
 
-    private void initFrame() {
+    public static void main(String[] args) {
+        new TicTacToe().setVisible(true);
+    }
+
+    private void initGameFrame() {
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
         pack();
+        setLocationRelativeTo(null);
     }
 
     private void selectGameMode() {
-        JPanel jPanel = new JPanel();
-        jPanel.setBorder(new TitledBorder("Select game mode:"));
-        jPanel.setPreferredSize(new Dimension(300,90));
-        getContentPane().add(jPanel);
-
-        // Button to initilialize single player mode vs AI
-        JButton singlePlayerMode = new JButton("Single Player");
-        singlePlayerMode.addActionListener(e -> {
-            // TODO
-            remove(jPanel);
-            gameMode = 1;
-            startSinglePlay();
-        });
-        singlePlayerMode.setToolTipText("Play against the game.");
-        singlePlayerMode.setPreferredSize(new Dimension(150, 30));
-        jPanel.add(singlePlayerMode);
-
-        // Button to initilialize two player mode
-        JButton twoPlayerMode = new JButton("Two Players");
-        twoPlayerMode.addActionListener(e -> {
-            remove(jPanel);
-            gameMode = 2;
-            selectPlayerWindow();
-        });
-        twoPlayerMode.setToolTipText("Play with a friend.");
+        JPanel jPanel = addSelectionPanel("Select game mode:", 300, 90);
+        // Buttons to initilialize two player modes
+        addGameModeButton(jPanel, GameMode.TWO_PLAYER, GameMode.TWO_PLAYER.getModeName(), "Play with a friend.");
+        addGameModeButton(jPanel, GameMode.SINGLE_PLAYER, GameMode.SINGLE_PLAYER.getModeName(), "Play against the PC.");
+        pack();
+    }
+    private void addGameModeButton(JPanel jPanel, GameMode mode, String text, String toolTip) {
+        JButton twoPlayerMode = new JButton(text);
+        twoPlayerMode.setToolTipText(toolTip);
+        twoPlayerMode.addActionListener(this);
         twoPlayerMode.setPreferredSize(new Dimension(150, 30));
         jPanel.add(twoPlayerMode);
-        pack();
+    }
+
+    private JPanel addSelectionPanel(String panelTitle, int width, int height) {
+        JPanel jPanel = new JPanel();
+        jPanel.setBorder(new TitledBorder(panelTitle));
+        jPanel.setPreferredSize(new Dimension(width, height));
+        getContentPane().add(jPanel);
+        return jPanel;
     }
 
     private void startSinglePlay() {
         selectPlayerWindow();
     }
 
-    private void initAI(boolean player) {
-        ai = new AIPlayer(player);
-    }
 
     private void selectPlayerWindow() {
-        JPanel jPanel = new JPanel();
-        jPanel.setBorder(new TitledBorder("Play as:"));
-        jPanel.setPreferredSize(new Dimension(300,60));
-        getContentPane().add(jPanel);
+        JPanel jPanel = addSelectionPanel("Play as:", 300, 60);
 
-        setPlayerButton(jPanel, "Player X", xTurn, "click me!");
-        setPlayerButton(jPanel, "Player O", oTurn, "or click me!");
+        setPlayerButton(jPanel, "Player X", X_TURN, "click me!");
+        setPlayerButton(jPanel, "Player O", O_TURN, "or click me!");
         pack();
     }
 
     private void initBoardUI() {
         JPanel jPanel1 = new JPanel();
-        jPanel1.setLayout(new GridLayout(0,3));
-        jPanel1.setPreferredSize(new Dimension(300,300));
+        jPanel1.setLayout(new GridLayout(0, 3));
+        jPanel1.setPreferredSize(new Dimension(300, 300));
 
         generateButtons(jPanel1);
 
@@ -136,10 +129,6 @@ public class TicTacToe extends JFrame{
             this.turn = turn;
             remove(jPanel);
             initBoardUI();
-            if (gameMode == 1) {
-                boolean player = turn;
-                initAI(!player);
-            }
         });
         jButton.setToolTipText(s2);
         jButton.setPreferredSize(new Dimension(100, 30));
@@ -150,7 +139,7 @@ public class TicTacToe extends JFrame{
         for (int i = 0; i < board.getBoard().length; i++) {
             for (int j = 0; j < board.getBoard().length; j++) {
                 JButton button = new JButton(" ");
-                buttons.add(new TButton(i,j, button));
+                buttons.add(new TButton(i, j, button));
                 button.setFocusable(false);
                 int finalI = i;
                 int finalJ = j;
@@ -159,43 +148,9 @@ public class TicTacToe extends JFrame{
                         if (turn) {
                             board.addMarker(finalI, finalJ, x);
                             placeChar(x, button);
-                            if (gameMode == 1){
-
-                                Random rand = new Random();
-                                int pos = rand.nextInt(9);
-
-
-                                int x = pos % board.getBoard().length;
-                                int y = pos / board.getBoard().length;
-                                while (board.getBoard()[x][y] != ' ') {
-                                    pos = rand.nextInt(9);
-                                    x = pos % board.getBoard().length;
-                                    y = pos / board.getBoard().length;
-                                }
-                                JButton click = buttons.get(pos).jButton;
-                                board.addMarker(x,y,ai.getSymbol());
-                                placeChar(ai.getSymbol(), click);
-                            }
                         } else {
                             board.addMarker(finalI, finalJ, o);
                             placeChar(o, button);
-                            if (gameMode == 1){
-
-                                Random rand = new Random();
-                                int pos = rand.nextInt(9);
-
-
-                                int x = pos % board.getBoard().length;
-                                int y = pos / board.getBoard().length;
-                                while (board.getBoard()[x][y] != ' ') {
-                                    pos = rand.nextInt(9);
-                                    x = pos % board.getBoard().length;
-                                    y = pos / board.getBoard().length;
-                                }
-                                JButton click = buttons.get(pos).jButton;
-                                board.addMarker(x,y,ai.getSymbol());
-                                placeChar(ai.getSymbol(), click);
-                            }
                         }
                         if (gameMode == 2) turn = !turn;
                     }
@@ -208,11 +163,12 @@ public class TicTacToe extends JFrame{
 
     private void placeChar(char playerName, JButton button) {
         button.setEnabled(false);
-        ImageIcon imageIcon = new ImageIcon(getClass().getResource("src/ui/"+playerName + ".gif"));
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/res/" + playerName + ".gif"));
         button.setIcon(imageIcon);
         button.setDisabledIcon(imageIcon);
+        button.setText("");
 
-        switch(board.checkState(playerName)) {
+        switch (board.checkState(playerName)) {
             case '0':
                 drawScreen();
                 break;
@@ -249,7 +205,7 @@ public class TicTacToe extends JFrame{
 
     private JPanel getEndGamePanel(Label victory) {
         JPanel jPanel = new JPanel();
-        jPanel.setPreferredSize(new Dimension(300,70));
+        jPanel.setPreferredSize(new Dimension(300, 70));
         jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
         getContentPane().add(jPanel);
         jPanel.add(victory);
@@ -261,7 +217,7 @@ public class TicTacToe extends JFrame{
         });
 
         jButton2.setToolTipText("Reset the game");
-        jButton2.setPreferredSize(new Dimension(100,20));
+        jButton2.setPreferredSize(new Dimension(100, 20));
         jButton2.setAlignmentX(Component.CENTER_ALIGNMENT);
         jPanel.add(jButton2);
 
@@ -269,7 +225,24 @@ public class TicTacToe extends JFrame{
         return jPanel;
     }
 
-    public static void main(String[] args) {
-        new TicTacToe().setVisible(true);
+    private void placeRandomChar() {
+        if (gameMode == 1) {
+
+            Random rand = new Random();
+            int pos = rand.nextInt(9);
+
+
+            int x = pos % board.getBoard().length;
+            int y = pos / board.getBoard().length;
+            while (board.getBoard()[x][y] != ' ') {
+                pos = rand.nextInt(9);
+                x = pos % board.getBoard().length;
+                y = pos / board.getBoard().length;
+            }
+            JButton click = buttons.get(pos).jButton;
+            board.addMarker(x, y, ai.getSymbol());
+            placeChar(ai.getSymbol(), click);
+        }
     }
+
 }
