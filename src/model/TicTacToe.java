@@ -15,11 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
+import static model.TurnConstants.O_TURN;
+import static model.TurnConstants.X_TURN;
+
 public class TicTacToe extends JFrame implements ActionListener{
-    public static final char x = 'X';
-    public static final char o = 'O';
-    public static final Boolean X_TURN = true;
-    public static final Boolean O_TURN = false;
     private AIPlayer ai;
     private List<TButton> buttons;
     private boolean turn;
@@ -146,11 +145,11 @@ public class TicTacToe extends JFrame implements ActionListener{
                 button.addActionListener(e -> {
                     if (button.getText().equals(" ")) {
                         if (turn) {
-                            board.addMarker(finalI, finalJ, x);
-                            placeChar(x, button);
+                            board.addMarker(finalI, finalJ, TurnConstants.x);
+                            placeChar(TurnConstants.x, button);
                         } else {
-                            board.addMarker(finalI, finalJ, o);
-                            placeChar(o, button);
+                            board.addMarker(finalI, finalJ, TurnConstants.o);
+                            placeChar(TurnConstants.o, button);
                         }
                         if (gameMode == 2) turn = !turn;
                     }
@@ -172,11 +171,11 @@ public class TicTacToe extends JFrame implements ActionListener{
             case '0':
                 drawScreen();
                 break;
-            case x:
-                winScreen(x);
+            case TurnConstants.x:
+                winScreen(TurnConstants.x);
                 break;
-            case o:
-                winScreen(o);
+            case TurnConstants.o:
+                winScreen(TurnConstants.o);
                 break;
             case ' ':
                 break;
@@ -225,24 +224,24 @@ public class TicTacToe extends JFrame implements ActionListener{
         return jPanel;
     }
 
-    private void placeRandomChar() {
-        if (gameMode == 1) {
-
-            Random rand = new Random();
-            int pos = rand.nextInt(9);
-
-
-            int x = pos % board.getBoard().length;
-            int y = pos / board.getBoard().length;
-            while (board.getBoard()[x][y] != ' ') {
-                pos = rand.nextInt(9);
-                x = pos % board.getBoard().length;
-                y = pos / board.getBoard().length;
-            }
-            JButton click = buttons.get(pos).jButton;
-            board.addMarker(x, y, ai.getSymbol());
-            placeChar(ai.getSymbol(), click);
-        }
-    }
+//    private void placeRandomChar() {
+//        if (gameMode == 1) {
+//
+//            Random rand = new Random();
+//            int pos = rand.nextInt(9);
+//
+//
+//            int x = pos % board.getBoard().length;
+//            int y = pos / board.getBoard().length;
+//            while (board.getBoard()[x][y] != ' ') {
+//                pos = rand.nextInt(9);
+//                x = pos % board.getBoard().length;
+//                y = pos / board.getBoard().length;
+//            }
+//            JButton click = buttons.get(pos).jButton;
+//            board.addMarker(x, y, ai.getSymbol());
+//            placeChar(ai.getSymbol(), click);
+//        }
+//    }
 
 }
