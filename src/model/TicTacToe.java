@@ -18,7 +18,8 @@ import javax.swing.border.TitledBorder;
 import static model.TurnConstants.O_TURN;
 import static model.TurnConstants.X_TURN;
 
-public class TicTacToe extends JFrame implements ActionListener{
+// TODO: Split UI from business logic
+public class TicTacToe extends JFrame implements ActionListener {
     private AIPlayer ai;
     private List<TButton> buttons;
     private boolean turn;
@@ -224,12 +225,12 @@ public class TicTacToe extends JFrame implements ActionListener{
         return jPanel;
     }
 
+// TODO: add this function
 //    private void placeRandomChar() {
 //        if (gameMode == 1) {
 //
 //            Random rand = new Random();
-//            int pos = rand.nextInt(9);
-//
+//            int pos = rand.nextInt(9)
 //
 //            int x = pos % board.getBoard().length;
 //            int y = pos / board.getBoard().length;
