@@ -77,8 +77,9 @@ public class TicTacToe extends JFrame implements ActionListener {
 
     private void selectGameMode() {
         JPanel jPanel = addSelectionPanel("Select game mode:", 300, 90);
+        // TODO: convert to single player only
         // Buttons to initilialize two player modes
-        addGameModeButton(jPanel, GameMode.TWO_PLAYER, GameMode.TWO_PLAYER.getModeName(), "Play with a friend.");
+        // addGameModeButton(jPanel, GameMode.TWO_PLAYER, GameMode.TWO_PLAYER.getModeName(), "Play with a friend.");
         addGameModeButton(jPanel, GameMode.SINGLE_PLAYER, GameMode.SINGLE_PLAYER.getModeName(), "Play against the PC.");
         pack();
     }
