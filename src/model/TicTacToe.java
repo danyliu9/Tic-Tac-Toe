@@ -112,18 +112,6 @@ public class TicTacToe extends JFrame implements ActionListener {
         pack();
     }
 
-    private void initBoardUI() {
-        JPanel jPanel1 = new JPanel();
-        jPanel1.setLayout(new GridLayout(0, 3));
-        jPanel1.setPreferredSize(new Dimension(300, 300));
-
-        generateButtons(jPanel1);
-
-        getContentPane().add(jPanel1);
-        pack();
-        setLocationRelativeTo(null);
-    }
-
     private void setPlayerButton(JPanel jPanel, String s, Boolean turn, String s2) {
         JButton jButton = new JButton(s);
         jButton.addActionListener(e -> {
@@ -134,6 +122,18 @@ public class TicTacToe extends JFrame implements ActionListener {
         jButton.setToolTipText(s2);
         jButton.setPreferredSize(new Dimension(100, 30));
         jPanel.add(jButton);
+    }
+    
+    private void initBoardUI() {
+        JPanel jPanel1 = new JPanel();
+        jPanel1.setLayout(new GridLayout(0, 3));
+        jPanel1.setPreferredSize(new Dimension(300, 300));
+
+        generateButtons(jPanel1);
+
+        getContentPane().add(jPanel1);
+        pack();
+        setLocationRelativeTo(null);
     }
 
     private void generateButtons(JPanel jPanel1) {
