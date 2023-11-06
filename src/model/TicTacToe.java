@@ -28,8 +28,8 @@ public class TicTacToe extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getID() == Event.MOUSE_DOWN) {
-            this.removeAll();
+        if (e.getActionCommand() == GameMode.SINGLE_PLAYER.getModeName()) {
+            this.getContentPane().removeAll();
             gameMode = 1;
             startSinglePlay();
         }
