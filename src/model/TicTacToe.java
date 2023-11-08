@@ -17,6 +17,8 @@ import javax.swing.border.TitledBorder;
 
 import static model.TurnConstants.O_TURN;
 import static model.TurnConstants.X_TURN;
+import static model.UIConstants.DIALOG_BUTTON_HEIGHT;
+import static model.UIConstants.DIALOG_BUTTON_WIDTH;
 
 // TODO: Split UI from business logic
 public class TicTacToe extends JFrame implements ActionListener {
@@ -87,7 +89,7 @@ public class TicTacToe extends JFrame implements ActionListener {
         JButton twoPlayerMode = new JButton(text);
         twoPlayerMode.setToolTipText(toolTip);
         twoPlayerMode.addActionListener(this);
-        twoPlayerMode.setPreferredSize(new Dimension(150, 30));
+        twoPlayerMode.setPreferredSize(new Dimension(DIALOG_BUTTON_WIDTH, DIALOG_BUTTON_HEIGHT));
         jPanel.add(twoPlayerMode);
     }
 
@@ -120,7 +122,7 @@ public class TicTacToe extends JFrame implements ActionListener {
             initBoardUI();
         });
         jButton.setToolTipText(s2);
-        jButton.setPreferredSize(new Dimension(100, 30));
+        jButton.setPreferredSize(new Dimension(DIALOG_BUTTON_WIDTH, DIALOG_BUTTON_HEIGHT));
         jPanel.add(jButton);
     }
     
