@@ -19,6 +19,8 @@ import static model.TurnConstants.O_TURN;
 import static model.TurnConstants.X_TURN;
 import static model.UIConstants.DIALOG_BUTTON_HEIGHT;
 import static model.UIConstants.DIALOG_BUTTON_WIDTH;
+import static model.UIConstants.DIALOG_PANEL_HEIGHT;
+import static model.UIConstants.DIALOG_PANEL_WIDTH;
 
 // TODO: Split UI from business logic
 public class TicTacToe extends JFrame implements ActionListener {
@@ -78,7 +80,7 @@ public class TicTacToe extends JFrame implements ActionListener {
     }
 
     private void selectGameMode() {
-        JPanel jPanel = addSelectionPanel("Select game mode:", 300, 90);
+        JPanel jPanel = addSelectionPanel("Select game mode:", DIALOG_PANEL_WIDTH, DIALOG_PANEL_HEIGHT);
         // TODO: convert to single player only
         // Buttons to initilialize two player modes
         // addGameModeButton(jPanel, GameMode.TWO_PLAYER, GameMode.TWO_PLAYER.getModeName(), "Play with a friend.");
@@ -107,7 +109,7 @@ public class TicTacToe extends JFrame implements ActionListener {
 
 
     private void selectPlayerWindow() {
-        JPanel jPanel = addSelectionPanel("Play as:", 300, 60);
+        JPanel jPanel = addSelectionPanel("Play as:", DIALOG_PANEL_WIDTH, DIALOG_PANEL_HEIGHT);
 
         setPlayerButton(jPanel, "Player X", X_TURN, "click me!");
         setPlayerButton(jPanel, "Player O", O_TURN, "or click me!");
