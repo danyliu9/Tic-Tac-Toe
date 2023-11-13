@@ -17,6 +17,8 @@ import javax.swing.border.TitledBorder;
 
 import static model.TurnConstants.O_TURN;
 import static model.TurnConstants.X_TURN;
+import static model.UIConstants.BOARD_HEIGHT;
+import static model.UIConstants.BOARD_WIDTH;
 import static model.UIConstants.DIALOG_BUTTON_HEIGHT;
 import static model.UIConstants.DIALOG_BUTTON_WIDTH;
 import static model.UIConstants.DIALOG_PANEL_HEIGHT;
@@ -131,7 +133,7 @@ public class TicTacToe extends JFrame implements ActionListener {
     private void initBoardUI() {
         JPanel jPanel1 = new JPanel();
         jPanel1.setLayout(new GridLayout(0, 3));
-        jPanel1.setPreferredSize(new Dimension(300, 300));
+        jPanel1.setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));
 
         generateButtons(jPanel1);
 
