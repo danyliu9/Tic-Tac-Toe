@@ -34,7 +34,7 @@ public class TicTacToe extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand() == GameMode.SINGLE_PLAYER.getModeName()) {
+        if (e.getActionCommand() == GameMode.LOCAL_TWO_PLAYER.getModeName()) {
             this.getContentPane().removeAll();
             gameMode = 1;
             startSinglePlay();
@@ -86,15 +86,15 @@ public class TicTacToe extends JFrame implements ActionListener {
         // TODO: convert to single player only
         // Buttons to initilialize two player modes
         // addGameModeButton(jPanel, GameMode.TWO_PLAYER, GameMode.TWO_PLAYER.getModeName(), "Play with a friend.");
-        addGameModeButton(jPanel, GameMode.SINGLE_PLAYER, GameMode.SINGLE_PLAYER.getModeName(), "Play against the PC.");
+        addGameModeButton(jPanel, GameMode.LOCAL_TWO_PLAYER, GameMode.LOCAL_TWO_PLAYER.getModeName(), "");
         pack();
     }
     private void addGameModeButton(JPanel jPanel, GameMode mode, String text, String toolTip) {
-        JButton twoPlayerMode = new JButton(text);
-        twoPlayerMode.setToolTipText(toolTip);
-        twoPlayerMode.addActionListener(this);
-        twoPlayerMode.setPreferredSize(new Dimension(DIALOG_BUTTON_WIDTH, DIALOG_BUTTON_HEIGHT));
-        jPanel.add(twoPlayerMode);
+        JButton playerMode = new JButton(text);
+        playerMode.setToolTipText(toolTip);
+        playerMode.addActionListener(this);
+        playerMode.setPreferredSize(new Dimension(DIALOG_BUTTON_WIDTH, DIALOG_BUTTON_HEIGHT));
+        jPanel.add(playerMode);
     }
 
     private JPanel addSelectionPanel(String panelTitle, int width, int height) {

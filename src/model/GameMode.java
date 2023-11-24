@@ -2,7 +2,7 @@ package model;
 
 public enum GameMode {
     SINGLE_PLAYER ("Single Player"),
-    TWO_PLAYER("Two Player");
+    LOCAL_TWO_PLAYER ("Local Two Player");
 
     private final String modeName;
 
