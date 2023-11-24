@@ -191,7 +191,7 @@ public class TicTacToe extends JFrame implements ActionListener {
     }
 
     private void winScreen(char player) {
-        Label victory = new Label("PLAYER " + player + " WINS!");
+        Label victory = new Label(String.format("PLAYER %s WINS!", String.valueOf(player)));
         victory.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
         victory.setAlignment(Label.CENTER);
 
