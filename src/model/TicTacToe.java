@@ -174,6 +174,7 @@ public class TicTacToe extends JFrame implements ActionListener {
         button.setIcon(imageIcon);
         button.setDisabledIcon(imageIcon);
         button.setText("");
+        this.turn = !this.turn;
 
         switch (board.checkState(playerName)) {
             case '0':
