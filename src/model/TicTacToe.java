@@ -26,7 +26,6 @@ import static model.UIConstants.DIALOG_PANEL_WIDTH;
 
 // TODO: Split UI from business logic
 public class TicTacToe extends JFrame implements ActionListener {
-    private AIPlayer ai;
     private List<TButton> buttons;
     private boolean turn;
     private int gameMode;
